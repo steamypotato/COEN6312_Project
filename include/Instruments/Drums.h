@@ -7,15 +7,15 @@
 
 #include "Instrument.h"
 
-enum DrumType {
-    SMALL_DRUMS = 3,
-    STANDARD_DRUMS = 5,
-};
-
 class Drums : public Instrument {
 public:
     Drums();
-    ~Drums() override;
+    ~Drums();
+protected:
+    int m_SnareDrumCount;
+    int m_BassDrumCount;
+    int m_TomDrumCount;
+    int m_SymbalsCount;
 };
 
 

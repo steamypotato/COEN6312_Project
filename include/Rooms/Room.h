@@ -13,7 +13,7 @@
 
 class Room {
 public:
-    Room();
+    Room(int);
     virtual ~Room();
 
     virtual std::string getDetails();
@@ -27,9 +27,10 @@ public:
     }
 protected:
     std::string m_ID;
+    int m_MaxCapacity{};
+    std::string m_Description;
     std::vector<std::shared_ptr<Booking>> m_Bookings;
     std::map<std::string, std::unique_ptr<Instrument>> m_Instruments;
-    int m_MaxCapacity;
 };
 
 

@@ -9,6 +9,6 @@
 class Microphone : public Instrument {
      public:
           Microphone();
-          ~Microphone() override;
+          ~Microphone();
 };
 #endif //MICROPHONE_H

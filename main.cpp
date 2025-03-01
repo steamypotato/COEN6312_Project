@@ -1,8 +1,11 @@
 #include <iostream>
-#include "RecordingRoom.h"
 #include "User.h"
 #include "RoomManager.h"
 
+/*
+ *  The first argument is the room type (band room, drum room, etc...) and then its a variable number of instruments
+ *  that will be created for that room
+ */
 template <typename RoomType,typename... Instruments>
 std::unique_ptr<RoomType> makeRoom(int max_size) {
     auto room = std::make_unique<RoomType>(max_size);
@@ -12,27 +15,26 @@ std::unique_ptr<RoomType> makeRoom(int max_size) {
 
 
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
-    // <b>lang</b> variable name to see how CLion can help you rename it.
-    //auto recording_room = std::make_unique<RecordingRoom>();
-
 
     RoomManager& roomManager = RoomManager::getInstance();
 
 
-
+    // Create all rooms, we provide each room with the maximum number of people that can occupy it.
     roomManager.addRooms(
         roomManager,
         // .....................Recording Rooms................................//
-        makeRoom<RecordingRoom,Microphone>(1),
+        makeRoom<RecordingRoom,Microphone,SmallDrums>(1),
         // ..................... Drum Rooms ...................................//
+        makeRoom<SmallDrumRoom,SmallDrums>(1),
+        makeRoom<StandardDrumRoom,StandardDrums>(2),
+
         // .....................Solo/Duo Rooms.................................//
         // .....................Band Rooms ....................................//
-        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(3),
-        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(4),
-        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(4),
-        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(6),
-        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(10)
+        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(3),
+        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(4),
+        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(4),
+        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(6),
+        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(10)
     );
 
     roomManager.printRoomDetails();

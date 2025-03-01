@@ -3,7 +3,7 @@
 //
 #include "RecordingRoom.h"
 
-RecordingRoom::RecordingRoom(const int size)  {
-    m_MaxCapacity = size;
+RecordingRoom::RecordingRoom(int capacity) : Room(capacity) {
+    m_Description = "Basic recording room";
 }
 RecordingRoom::~RecordingRoom() = default;

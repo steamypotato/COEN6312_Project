@@ -10,7 +10,7 @@
 
 class RecordingRoom : public Room {
 public:
-    RecordingRoom(int);
+    explicit RecordingRoom(int);
     ~RecordingRoom() override;
 };
 #endif //RECORDINGROOM_H

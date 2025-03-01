@@ -4,8 +4,7 @@
 #include "BandRoom.h"
 
 
-BandRoom::BandRoom(const int size){
-    m_MaxCapacity = size;
+BandRoom::BandRoom(const int size): Room(size) {
 }
 
 BandRoom::~BandRoom()=default;

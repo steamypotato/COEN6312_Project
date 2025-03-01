@@ -4,9 +4,10 @@
 
 #include "EletricGuitarAmp.h"
 
-EletricGuitarAmp::~EletricGuitarAmp() = default;
-EletricGuitarAmp::EletricGuitarAmp(){
+
+ElectricGuitarAmp::ElectricGuitarAmp(){
     m_name = "guitarAmp";
     m_description = "Eletric guitar amplifier";
 }
 
+ElectricGuitarAmp::~ElectricGuitarAmp() = default;

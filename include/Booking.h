@@ -10,9 +10,10 @@
 #include "User.h"
 #include <memory>
 class Booking {
-    std::string m_RoomID;
+    std::string m_ID;
+    std::string m_BookedRoom_ID;
     std::shared_ptr<User> m_User;
-    std::string m_Time;
+    std::string m_BookingTime;
     int m_Size;
 
 public:

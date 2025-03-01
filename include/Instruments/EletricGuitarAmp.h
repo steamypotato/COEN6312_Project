@@ -7,10 +7,10 @@
 
 
 #include "Instrument.h"
-class EletricGuitarAmp : public Instrument {
+class ElectricGuitarAmp : public Instrument {
     public:
-      EletricGuitarAmp();
-      ~EletricGuitarAmp();
+      ElectricGuitarAmp();
+      ~ElectricGuitarAmp() ;
 
 };
 

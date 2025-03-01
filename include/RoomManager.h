@@ -5,7 +5,17 @@
 #ifndef ROOMMANAGER_H
 #define ROOMMANAGER_H
 
+#include "SmallDrums.h"
+#include "StandardDrums.h"
+#include "Piano.h"
+#include "ElectricBassAmp.h"
+#include "EletricGuitarAmp.h"
 
+
+#include "RecordingRoom.h"
+#include "SmallDrumRoom.h"
+#include "StandardDrumRoom.h"
+#include "SoloDuoRoom.h"
 #include "BandRoom.h"
 class RoomManager {
     std::map<std::string,std::unique_ptr<Room>> m_Rooms;
