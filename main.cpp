@@ -1,17 +1,42 @@
 #include <iostream>
 #include "RecordingRoom.h"
 #include "User.h"
+#include "RoomManager.h"
+
+template <typename RoomType,typename... Instruments>
+std::unique_ptr<RoomType> makeRoom(int max_size) {
+    auto room = std::make_unique<RoomType>(max_size);
+    (room->template addInstrument<Instruments>(), ...);
+    return room;
+}
+
 
 int main() {
     // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
     // <b>lang</b> variable name to see how CLion can help you rename it.
-    Room* room = new RecordingRoom();
-    room->defineRoomContent();
-    room->printDetails();
+    //auto recording_room = std::make_unique<RecordingRoom>();
 
-    User user1("John","Doe","JohnDoe@gmail.com");
-    auto* booking = new Booking(std::make_shared<User>(user1),"5:00",1,room->getID());
-    booking->printDetails();
+
+    RoomManager& roomManager = RoomManager::getInstance();
+
+
+
+    roomManager.addRooms(
+        roomManager,
+        // .....................Recording Rooms................................//
+        makeRoom<RecordingRoom,Microphone>(1),
+        // ..................... Drum Rooms ...................................//
+        // .....................Solo/Duo Rooms.................................//
+        // .....................Band Rooms ....................................//
+        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(3),
+        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(4),
+        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(4),
+        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(6),
+        makeRoom<BandRoom,Microphone,EletricGuitarAmp,ElectricBassAmp>(10)
+    );
+
+    roomManager.printRoomDetails();
+
 
     std::cin.get();
 }

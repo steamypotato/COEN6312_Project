@@ -6,13 +6,13 @@
 #define INSTRUMENT_H
 #include <string>
 #include "Uuid.h"
-
+#include <format>
 class Instrument {
 
     public:
-    Instrument() = default;
-    virtual ~Instrument() = default;
-    std::string getInformation() const;
+    Instrument();
+    virtual ~Instrument();
+    [[nodiscard]] std::string getInformation() const;
 
     protected:
       std::string m_name;

@@ -9,11 +9,8 @@
 #include "Microphone.h"
 
 class RecordingRoom : public Room {
-
-
 public:
-    void defineRoomContent() override;
-    RecordingRoom();
+    RecordingRoom(int);
     ~RecordingRoom() override;
 };
 #endif //RECORDINGROOM_H

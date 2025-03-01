@@ -5,15 +5,13 @@
 
 
 Booking::Booking(const std::shared_ptr<User> &user,const std::string & time, int size,
-                 const std::string& roomID) {
+                 const std::string& roomID){
     this->m_User = user;
     this->m_Size = size;
     this->m_Time = time;
     this->m_RoomID = roomID;
 }
-Booking::~Booking() {
-
-}
+Booking::~Booking() = default;
 
 void Booking::printDetails() {
     const std::string details = std::format("Room {} has been booked at {} for {} for {} people",
