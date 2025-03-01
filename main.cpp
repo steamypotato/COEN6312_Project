@@ -6,10 +6,10 @@
  *  The first argument is the room type (band room, drum room, etc...) and then its a variable number of instruments
  *  that will be created for that room
  */
-template <typename RoomType,typename... Instruments>
+template <typename RoomType,typename... Equipment>
 std::unique_ptr<RoomType> makeRoom(int max_size) {
     auto room = std::make_unique<RoomType>(max_size);
-    (room->template addInstrument<Instruments>(), ...);
+    (room->template addEquipment<Equipment>(), ...);
     return room;
 }
 
@@ -23,18 +23,32 @@ int main() {
     roomManager.addRooms(
         roomManager,
         // .....................Recording Rooms................................//
-        makeRoom<RecordingRoom,Microphone,SmallDrums>(1),
+        makeRoom<RecordingRoom,BasicSoundSystem,Microphone,SmallDrums>(1),
+        makeRoom<RecordingRoom,BasicSoundSystem,Microphone,SmallDrums>(1),
+        makeRoom<RecordingRoom,BasicSoundSystem,Microphone,SmallDrums>(1),
         // ..................... Drum Rooms ...................................//
-        makeRoom<SmallDrumRoom,SmallDrums>(1),
-        makeRoom<StandardDrumRoom,StandardDrums>(2),
+        makeRoom<SmallDrumRoom,BasicSoundSystem,SmallDrums>(1),
+        makeRoom<SmallDrumRoom,BasicSoundSystem,SmallDrums>(1),
+        makeRoom<StandardDrumRoom,BasicSoundSystem,StandardDrums>(2),
 
         // .....................Solo/Duo Rooms.................................//
+        makeRoom<SoloDuoRoom,BasicSoundSystem,ElectricGuitarAmp,SmallDrums>(2),
+        makeRoom<SoloDuoRoom,BasicSoundSystem,ElectricBassAmp,SmallDrums>(2),
+
         // .....................Band Rooms ....................................//
-        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(3),
-        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(4),
-        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(4),
-        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(6),
-        makeRoom<BandRoom,Microphone,ElectricGuitarAmp,ElectricBassAmp>(10)
+        // 3 person room has a microphone, guitar and bass amp, small drums and a piano
+        makeRoom<BandRoom,BasicSoundSystem,Microphone,ElectricGuitarAmp,ElectricBassAmp,SmallDrums,Piano>(3),
+        // 4 person room has 2 microphones, 2 guitar amps and 1 bass amp, standard drums and a piano
+        makeRoom<BandRoom,BasicSoundSystem,Microphone,Microphone,ElectricGuitarAmp,ElectricGuitarAmp,ElectricBassAmp,
+            StandardDrums,Piano>(4),
+        makeRoom<BandRoom,BasicSoundSystem,Microphone,Microphone,ElectricGuitarAmp,ElectricGuitarAmp,ElectricBassAmp,
+            StandardDrums,Piano>(4),
+        // 6 person room has a lighting system, 2 microphones, 2 guitar and 2 bass amps, standard drums, a synth and a piano
+        makeRoom<BandRoom,BasicSoundSystem,BasicLightingSystem,Microphone,Microphone,ElectricGuitarAmp,ElectricGuitarAmp,
+        ElectricBassAmp,ElectricBassAmp,StandardDrums,Synthesizer,Piano>(6),
+        // 10 person room has a advanced sound and lighting system, a stage, 2 microphones, 2 guitar amps, 2 bass amps, 2 drums kit, 2 synths and a piano
+        makeRoom<BandRoom,AdvancedSoundSystem,AdvancedLightingSystem,Stage,Microphone,Microphone,ElectricGuitarAmp,ElectricGuitarAmp,
+        ElectricBassAmp,ElectricBassAmp,StandardDrums,StandardDrums,Synthesizer,Synthesizer,Piano>(10)
     );
 
     roomManager.printRoomDetails();

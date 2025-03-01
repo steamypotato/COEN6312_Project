@@ -15,8 +15,8 @@ Room::~Room() = default;
 
 std::string Room::getDetails() {
     std::string details = std::format("Room {} - max size {} - equipment list \n",m_ID,std::to_string(m_MaxCapacity));
-    for (const auto& [id,instrument] : m_Instruments) {
-        details.append(instrument->getInformation());
+    for (const auto& [id,equipment] : m_Equipment) {
+        details.append(equipment->getInformation());
         details.append("\n");
     }
     return details;

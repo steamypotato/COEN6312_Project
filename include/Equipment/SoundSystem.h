@@ -5,9 +5,9 @@
 #ifndef SOUNDSYSTEM_H
 #define SOUNDSYSTEM_H
 
-#include "Instrument.h"
+#include "Equipment.h"
 
-class BasicSoundSystem : public Instrument{
+class BasicSoundSystem : public Equipment{
 public:
     BasicSoundSystem();
     ~BasicSoundSystem();

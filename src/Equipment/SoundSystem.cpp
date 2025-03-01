@@ -5,8 +5,9 @@
 #include "SoundSystem.h"
 
 
-BasicSoundSystem::BasicSoundSystem(){
+BasicSoundSystem::BasicSoundSystem() {
     m_description = "Basic Sound System";
+    m_name = "BasicSoundSystem";
 }
 
 BasicSoundSystem::~BasicSoundSystem(){}

@@ -10,8 +10,12 @@
 #include "Piano.h"
 #include "ElectricBassAmp.h"
 #include "EletricGuitarAmp.h"
+#include "Synthesizer.h"
 
-
+#include "SoundSystem.h"
+#include "AdvancedLightingSystem.h"
+#include "AdvancedSoundSystem.h"
+#include "Stage.h"
 #include "RecordingRoom.h"
 #include "SmallDrumRoom.h"
 #include "StandardDrumRoom.h"
