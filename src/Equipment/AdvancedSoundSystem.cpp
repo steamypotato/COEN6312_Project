@@ -7,7 +7,7 @@
 
 AdvancedSoundSystem::AdvancedSoundSystem(){
    m_description = "Advanced Sound System";
-   m_name = "AdvancedSoundSystem";
+   m_name = "Advanced Sound System";
  }
 
 AdvancedSoundSystem::~AdvancedSoundSystem() = default;

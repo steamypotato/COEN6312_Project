@@ -1,7 +1,7 @@
 #include <iostream>
 #include "User.h"
+#include "Booking.h"
 #include "RoomManager.h"
-
 /*
  *  The first argument is the room type (band room, drum room, etc...) and then its a variable number of instruments
  *  that will be created for that room
@@ -13,9 +13,7 @@ std::unique_ptr<RoomType> makeRoom(int max_size) {
     return room;
 }
 
-
-int main() {
-
+void createRooms() {
     RoomManager& roomManager = RoomManager::getInstance();
 
 
@@ -51,7 +49,43 @@ int main() {
         ElectricBassAmp,ElectricBassAmp,StandardDrums,StandardDrums,Synthesizer,Synthesizer,Piano>(10)
     );
 
-    roomManager.printRoomDetails();
+}
+
+void userBookingExample() {
+    RoomManager& roomManager = RoomManager::getInstance();
+
+    auto user1 = std::make_shared<User>("John","Doe","JohnDoe@gmail.com");
+    auto user2 = std::make_shared<User>("John","Smith","JohnSmith@gmail.com");
+
+    std::cout << "Account created for user " << user1->getName() << std::endl;
+
+    // Get the first recording room
+    auto room = roomManager.getRoom<RecordingRoom>();
+    if (room->getAvailable())
+    {
+        auto booking = std::make_shared<Booking>(user1,"16:00","18:00",room->getID(),1);
+        std::cout << booking->getBookingInformation() << std::endl;
+
+        if (booking->modify(user1,"12:00","14:00",room,1)) {
+            std::cout << booking->getBookingInformation() << std::endl;
+        }
+        else {
+            std::cout << "Error in booking modification" << std::endl;
+        }
+    }
+    else {
+        std::cout << "Room not available\n";
+    }
+
+}
+int main() {
+
+    createRooms();
+
+    userBookingExample();
+
+
+    //RoomManager::getInstance().printRoomDetails();
 
 
     std::cin.get();

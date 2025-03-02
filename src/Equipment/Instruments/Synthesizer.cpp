@@ -5,7 +5,7 @@
 #include "Synthesizer.h"
 
 Synthesizer::Synthesizer(){
-    m_description = "Synthesizer";
+    m_description = "66-key MIDI synthesizer with dynamic effects";
     m_name = "Synthesizer";
 }
 Synthesizer::~Synthesizer() = default;

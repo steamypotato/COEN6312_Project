@@ -6,6 +6,6 @@
 
 ElectricBassAmp::ElectricBassAmp(){
   m_description = "Bass amplifier";
-  m_name = "BassAmplifier";
+  m_name = "Bass amplifier";
 }
 ElectricBassAmp::~ElectricBassAmp()=default;

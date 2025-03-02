@@ -5,7 +5,7 @@
 #include "SoloDuoRoom.h"
 
 
-SoloDuoRoom::SoloDuoRoom(int capacity) : Room(capacity) {
+SoloDuoRoom::SoloDuoRoom(int capacity) : Room(capacity,base_hourly_rate) {
 
  }
  SoloDuoRoom::~SoloDuoRoom() = default;

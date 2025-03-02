@@ -5,6 +5,7 @@
 #include "Piano.h"
 
 Piano::Piano(){
+    m_name = "Piano";
     m_description = "Standard 88 key piano";
 }
 

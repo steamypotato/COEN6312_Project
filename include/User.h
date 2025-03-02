@@ -17,7 +17,7 @@ public:
     User(const std::string &, const std::string &,
         const std::string &);
 
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
 
 };
 

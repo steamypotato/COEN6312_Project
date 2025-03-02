@@ -10,8 +10,8 @@
 
 class DrumRoom : public Room {
 public:
-    explicit DrumRoom(int);
-    ~DrumRoom();
+    explicit DrumRoom(int,int);
+    ~DrumRoom() override;
 };
 
 

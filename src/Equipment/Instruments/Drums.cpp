@@ -5,7 +5,9 @@
 #include "Drums.h"
 
 Drums::Drums() {
-    this->m_description = "5 piece drum kit";
-    this->m_name = "Drums";
+    m_SymbalsCount = 0;
+    m_TomDrumCount = 0;
+    m_BassDrumCount = 0;
+    m_SnareDrumCount = 0;
 }
 Drums::~Drums() = default;

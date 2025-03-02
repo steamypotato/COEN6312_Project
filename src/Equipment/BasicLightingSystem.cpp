@@ -6,7 +6,7 @@
 
 BasicLightingSystem::BasicLightingSystem() {
     m_description = "A basic lighting system";
-    m_name = "BasicLightingSystem";
+    m_name = "Basic lighting system";
 }
 
 BasicLightingSystem::~BasicLightingSystem() = default;

@@ -9,6 +9,7 @@
 #include "Microphone.h"
 
 class RecordingRoom : public Room {
+    static constexpr int base_hourly_rate = 10;
 public:
     explicit RecordingRoom(int);
     ~RecordingRoom() override;

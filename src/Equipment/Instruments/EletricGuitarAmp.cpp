@@ -6,8 +6,8 @@
 
 
 ElectricGuitarAmp::ElectricGuitarAmp(){
-    m_name = "guitarAmp";
-    m_description = "Eletric guitar amplifier";
+    m_name = "Guitar amplifier";
+    m_description = "Guitar amplifier";
 }
 
 ElectricGuitarAmp::~ElectricGuitarAmp() = default;
