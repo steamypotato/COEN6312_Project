@@ -25,8 +25,8 @@ public:
         const std::string& roomID,int size);
     ~Booking();
 
-    bool modify(const std::shared_ptr<User> &, const std::string & start_time,const std::string& end_time,
-        Room*,int size);
+    void modify(const std::shared_ptr<User> &, const std::string & start_time,const std::string& end_time,
+        const std::string& roomID,int size);
 
     void setTime(const std::string &,const std::string &);
     void setSize(int size);

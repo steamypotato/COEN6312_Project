@@ -13,6 +13,7 @@ class User {
     std::string m_firstName;
     std::string m_lastName;
     std::string m_email;
+    bool m_IsCheckedIn;
 public:
     User(const std::string &, const std::string &,
         const std::string &);

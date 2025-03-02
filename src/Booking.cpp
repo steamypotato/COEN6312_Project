@@ -23,26 +23,13 @@ void Booking::setTime(const std::string &start_time,const std::string &end_time)
     this->m_EndTime = end_time;
 }
 
-bool Booking::modify(const std::shared_ptr<User> & user, const std::string & start_time,const std::string& end_time,
-        Room* room, const int size) {
-
-    std::regex timeRegex(R"(^(?:[01]\d|2[0-3]):[0-5]\d$)");
-    if (!std::regex_match(start_time, timeRegex)) {
-        return false;
-    }
-    if (!std::regex_match(end_time, timeRegex)) {
-        return false;
-    }
-    if (size <= 0 && size > room->getMaxCapacity()) {
-        return false;
-    }
-    if (m_User != user) {
-        return false;
-    }
+void Booking::modify(const std::shared_ptr<User> & user, const std::string & start_time,const std::string& end_time,
+        const std::string& roomID, const int size) {
+    this->m_User = user;
     this->m_Size = size;
     this->m_StartTime = start_time;
     this->m_EndTime = end_time;
-    return true;
+    this->m_BookedRoom_ID = roomID;
 }
 
 std::string Booking::getBookingInformation() {
