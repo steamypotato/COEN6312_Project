@@ -82,10 +82,12 @@ class RoomManager {
         m_Rooms.erase(roomID);
     }
     std::shared_ptr<Room> getRoomByID(const std::string& roomID) {
-        if (!m_Rooms.contains(roomID)) {
+        if (!m_Rooms.contains(roomID))
             return nullptr;
-        }
         return m_Rooms.at(roomID);
+    }
+    void clearAllRooms() {
+        m_Rooms.clear();
     }
     RoomManager(const RoomManager&) = delete;
     RoomManager& operator=(const RoomManager&) = delete;

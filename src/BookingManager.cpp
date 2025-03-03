@@ -23,7 +23,7 @@ std::pair<bool,std::string> BookingManager::createBooking(const std::shared_ptr<
     }
 
     auto id = uuid::generate_uuid_v4();
-    m_Bookings[id]  = std::make_unique<Booking>(user,start_time, end_time, roomID, size);
+    m_Bookings[id]  = std::make_shared<Booking>(user,start_time, end_time, roomID, size);
 
     /*
      * This regex makes sure strings entered in 24 hour time format are ONLY accepted.
@@ -36,7 +36,7 @@ std::pair<bool,std::string> BookingManager::createBooking(const std::shared_ptr<
     if (!std::regex_match(end_time, timeRegex)) {
         return {false,std::format("Invalid end time : {}",end_time)};
     }
-    if (size <= 0 && size > room->getMaxCapacity()) {
+    if (size <= 0 | size > room->getMaxCapacity()) {
         return {false,std::format("Invalid size : {}, must 1 - {}",size,room->getMaxCapacity())};
     }
     if (user == nullptr) {
@@ -60,7 +60,7 @@ std::pair<bool,std::string>  BookingManager::modifyBooking(const std::string& id
     if (!std::regex_match(end_time, timeRegex)) {
         return {false,std::format("Invalid end time : {}",end_time)};
     }
-    if (size <= 0 && size > room->getMaxCapacity()) {
+    if (size <= 0 | size > room->getMaxCapacity()) {
         return {false,std::format("Invalid size : {}, must 1 - {}",size,room->getMaxCapacity())};
     }
     if (user == nullptr) {
@@ -71,6 +71,34 @@ std::pair<bool,std::string>  BookingManager::modifyBooking(const std::string& id
     return {true,id};
 }
 
+
+std::pair<bool,std::string> BookingManager::checkInUser(const std::shared_ptr<User>& user, std::string bookingID, std::string roomID, std::string current_time){
+
+    // Does this booking exist?
+    auto booking = m_Bookings.find(bookingID);
+    if(booking == m_Bookings.end()){
+        return std::make_pair(false,std::format("Booking {} not found",bookingID));
+    }
+    // Does the room exist?
+    auto room = roomManager.getRoomByID(roomID);
+    if(room == nullptr){
+        return std::make_pair(false,std::format("Room {} not found",roomID));
+    }
+    //User is too late! (10 minutes + is late)
+    int arrival_diff = utils::getEpochFromTimeString(current_time) - utils::getEpochFromTimeString(booking->second->getStartTime());
+    if(arrival_diff > 600){
+        return std::make_pair(false,std::format("User {} is late by {} seconds",bookingID,arrival_diff));
+    }
+    if(!room->getAvailable()){
+        return std::make_pair(false,std::format("Room {} not available",roomID));
+    }
+    room->setAvailable(false);
+
+    user.get()->setCheckIn(true);
+
+    return std::make_pair(true,std::format("{} checked in for room {}",user->getName(),roomID));
+
+}
 
 std::string BookingManager::getBookingInformation(const std::string& id) const {
     return m_Bookings.at(id)->getBookingInformation();
