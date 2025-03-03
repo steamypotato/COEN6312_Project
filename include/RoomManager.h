@@ -71,6 +71,18 @@ class RoomManager {
         return nullptr;
     }
 
+    template <typename RoomType>
+    std::vector<RoomType*> getAllRooms(int capacity) {
+        static_assert(std::is_base_of_v<Room, RoomType>, "T must be derived from Room");
+        std::vector<RoomType*> rooms;
+        for(const auto& [id,room] : this->m_Rooms){
+            if (auto* matchedRoom = dynamic_cast<RoomType*>(room.get());
+                matchedRoom && matchedRoom->getMaxCapacity() == capacity) {
+                rooms.push_back(matchedRoom);
+                }
+        }
+        return rooms;
+    }
     /*
      * A room is insert into the map where the key is the ID of the room
      */

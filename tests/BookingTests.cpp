@@ -1,8 +1,4 @@
-#include <gtest/gtest.h>
-#include "BookingManager.h"
-#include "User.h"
-RoomManager& room_manager = RoomManager::getInstance();
-BookingManager& booking_manager = BookingManager::getInstance();
+#include "TestSetup.h"
 
 std::shared_ptr<Room> room = nullptr;
 std::shared_ptr<User> user = nullptr;
@@ -10,7 +6,7 @@ std::shared_ptr<User> user = nullptr;
 void setup() {
     room_manager.clearAllRooms();
     booking_manager.clearAllBookings();
-    // Code that runs before each test
+
     room = std::make_shared<RecordingRoom>(1);
     room_manager.addRoom(room);
 
