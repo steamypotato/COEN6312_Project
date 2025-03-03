@@ -1,23 +1,20 @@
 #include <iostream>
 #include "User.h"
 #include "RoomManager.h"
-
+#include "BookingManager.h"
 /*
  *  The first argument is the room type (band room, drum room, etc...) and then its a variable number of instruments
  *  that will be created for that room
  */
 template <typename RoomType,typename... Equipment>
-std::unique_ptr<RoomType> makeRoom(int max_size) {
-    auto room = std::make_unique<RoomType>(max_size);
+std::shared_ptr<RoomType> makeRoom(int max_size) {
+    auto room = std::make_shared<RoomType>(max_size);
     (room->template addEquipment<Equipment>(), ...);
     return room;
 }
 
-
-int main() {
-
+void createRooms() {
     RoomManager& roomManager = RoomManager::getInstance();
-
 
     // Create all rooms, we provide each room with the maximum number of people that can occupy it.
     roomManager.addRooms(
@@ -51,7 +48,43 @@ int main() {
         ElectricBassAmp,ElectricBassAmp,StandardDrums,StandardDrums,Synthesizer,Synthesizer,Piano>(10)
     );
 
-    roomManager.printRoomDetails();
+}
+
+void checkInUserExample() {
+
+}
+
+void userBookingExample() {
+    RoomManager& roomManager = RoomManager::getInstance();
+    BookingManager& bookingManager = BookingManager::getInstance();
+
+    auto user = std::make_shared<User>("John","Doe","JohnDoe@gmail.com");
+
+    // Get the first recording room
+    auto room = roomManager.getRoom<RecordingRoom>();
+
+    if (room->getAvailable())
+    {
+        auto [status,id] = bookingManager.createBooking(user,"16:00","18:00",room->getID(),1);
+
+        std::cout << bookingManager.getBookingInformation(id) << std::endl;
+
+        bookingManager.modifyBooking(id,user,"12:00","14:00",room->getID(),1);
+        std::cout << bookingManager.getBookingInformation(id)  << std::endl;
+    }
+    else {
+        std::cout << "Room not available\n";
+    }
+
+}
+int main() {
+
+    createRooms();
+
+    userBookingExample();
+
+
+    //RoomManager::getInstance().printRoomDetails();
 
 
     std::cin.get();

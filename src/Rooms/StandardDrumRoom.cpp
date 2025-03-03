@@ -4,7 +4,7 @@
 
 #include "StandardDrumRoom.h"
 
-StandardDrumRoom::StandardDrumRoom(int capacity) : DrumRoom(capacity) {
+StandardDrumRoom::StandardDrumRoom(int capacity) : DrumRoom(capacity,base_hourly_rate) {
   m_Description = "Standard Drum Room";
 }
 

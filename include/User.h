@@ -13,11 +13,15 @@ class User {
     std::string m_firstName;
     std::string m_lastName;
     std::string m_email;
+    std::string m_checkInTime;
+    bool m_IsCheckedIn;
 public:
     User(const std::string &, const std::string &,
         const std::string &);
 
-    std::string getName() const;
+    void setCheckInTime(const std::string& checkInTime);
+    void setCheckIn(const bool);
+    [[nodiscard]] std::string getName() const;
 
 };
 

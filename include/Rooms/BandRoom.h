@@ -11,18 +11,22 @@
 #include "EletricGuitarAmp.h"
 #include "Drums.h"
 
-enum BandRoomType {
-    THREE_PERSON_ROOM = 3,
-    FOUR_PERSON_ROOM = 4,
-    SIX_PERSON_ROOM = 6,
-    TEN_PERSON_ROOM = 10,
+enum BandRoomSize {
+    THREE_PERSON_BAND_ROOM = 3,
+    FOUR_PERSON_BAND_ROOM = 4,
+    SIX_PERSON_BAND_ROOM = 6,
+    TEN_PERSON_BAND_ROOM = 10,
 };
 
 class BandRoom : public Room {
+
+    static constexpr int base_hourly_rate = 20;
+    static constexpr int additional_per_person_room_cost = 5;
+
 public:
     explicit BandRoom(int);
     BandRoom();
-    ~BandRoom();
+    ~BandRoom() override;
 
 };
 

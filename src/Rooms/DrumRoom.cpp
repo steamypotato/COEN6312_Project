@@ -4,6 +4,6 @@
 
 #include "DrumRoom.h"
 
-DrumRoom::DrumRoom(int capacity) : Room(capacity) {
+DrumRoom::DrumRoom(const int capacity,const int cost) : Room(capacity,cost) {
 }
 DrumRoom::~DrumRoom() = default;

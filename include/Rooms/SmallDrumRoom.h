@@ -7,10 +7,14 @@
 
 #include "DrumRoom.h"
 
+enum SmallDrumRoomSizes {
+    SINGLE_PERSON_SMALL_DRUM_ROOM = 1
+};
 class SmallDrumRoom : public DrumRoom{
+    static constexpr int base_hourly_rate = 15;
 public:
-    SmallDrumRoom(int);
-    ~SmallDrumRoom();
+    explicit SmallDrumRoom(int);
+    ~SmallDrumRoom() override;
 };
 
 

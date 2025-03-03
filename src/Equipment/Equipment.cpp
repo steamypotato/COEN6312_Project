@@ -3,9 +3,7 @@
 //
 #include "Equipment.h"
 
-Equipment::Equipment(){
-}
-
+Equipment::Equipment()= default;
 Equipment::~Equipment() = default;
 
 std::string Equipment::getInformation() const {

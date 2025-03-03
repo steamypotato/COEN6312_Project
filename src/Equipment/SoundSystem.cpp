@@ -6,8 +6,7 @@
 
 
 BasicSoundSystem::BasicSoundSystem() {
-    m_description = "Basic Sound System";
-    m_name = "BasicSoundSystem";
+    m_description = "Basic sound system";
+    m_name = "Basic sound system";
 }
-
-BasicSoundSystem::~BasicSoundSystem(){}
+BasicSoundSystem::~BasicSoundSystem()=default;

@@ -8,9 +8,10 @@
 #include "Room.h"
 
 class SoloDuoRoom : public Room{
+    static constexpr int base_hourly_rate = 20;
   public:
     explicit SoloDuoRoom(int);
-    ~SoloDuoRoom();
+    ~SoloDuoRoom() override;
 };
 
 

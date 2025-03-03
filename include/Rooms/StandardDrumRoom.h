@@ -8,9 +8,10 @@
 #include "DrumRoom.h"
 
 class StandardDrumRoom : public DrumRoom {
+    static constexpr int base_hourly_rate = 20;
     public:
-      StandardDrumRoom(int);
-      ~StandardDrumRoom();
+      explicit StandardDrumRoom(int);
+      ~StandardDrumRoom() override;
 };
 
 

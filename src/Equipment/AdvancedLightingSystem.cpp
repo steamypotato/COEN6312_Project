@@ -6,6 +6,6 @@
 
 AdvancedLightingSystem::AdvancedLightingSystem(){
     m_description = "Advanced Lighting System";
-    m_name = "AdvancedLightingSystem";
+    m_name = "Advanced Lighting System";
 }
 AdvancedLightingSystem::~AdvancedLightingSystem() = default;

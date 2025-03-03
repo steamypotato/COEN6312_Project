@@ -4,8 +4,27 @@
 
 #ifndef UUID_H
 #define UUID_H
+#include <iomanip>
 #include <random>
 #include <sstream>
+
+namespace utils {
+    static time_t getEpochFromTimeString(const std::string& timeStr) {
+        std::tm tm = {};
+        // Get the current date (in local time) to use as a base.
+        time_t now = time(nullptr);
+        tm = *std::localtime(&now);
+
+        // Parse the time string to update the hours and minutes.
+        std::istringstream iss(timeStr);
+        iss >> std::get_time(&tm, "%H:%M");
+
+
+        // mktime converts tm (interpreted as local time) into epoch time.
+        return std::mktime(&tm);
+    }
+}
+
 
 namespace uuid {
     static std::random_device              rd;
