@@ -12,6 +12,20 @@ TEST(RoomTests, CorrectRecordingRoomCreation) {
     EXPECT_TRUE(status) << msg;
 }
 
+TEST(RoomTests, CorrectDrumRoomCreation) {
+    clearContext();
+
+    auto [status,msg] = room_manager.addRoom<SmallDrumRoom>(1);
+    EXPECT_TRUE(status) << msg;
+}
+
+TEST(RoomTests, CorrectSoloDuoRoomCreation) {
+    clearContext();
+
+    auto [status,msg] = room_manager.addRoom<SoloDuoRoom>(1);
+    EXPECT_TRUE(status) << msg;
+}
+
 TEST(RoomTests, CorrectBandRoomCreation) {
     clearContext();
 
@@ -19,19 +33,8 @@ TEST(RoomTests, CorrectBandRoomCreation) {
     EXPECT_TRUE(status) << msg;
 }
 
-TEST(RoomTests, CorrectSoloDuoRoom) {
-    clearContext();
 
-    auto [status,msg] = room_manager.addRoom<SoloDuoRoom>(1);
-    EXPECT_TRUE(status) << msg;
-}
 
-TEST(RoomTests, CorrectDrumRoomCreation) {
-    clearContext();
-
-    auto [status,msg] = room_manager.addRoom<SmallDrumRoom>(1);
-    EXPECT_TRUE(status) << msg;
-}
 
 // There can only be 3 recording rooms at most
 TEST(RoomTests, TooManyRecordingRooms) {
@@ -45,6 +48,35 @@ TEST(RoomTests, TooManyRecordingRooms) {
 
     const auto rooms = room_manager.getAllRooms<RecordingRoom>(1);
     EXPECT_EQ(rooms.size(), 3);
+}
+
+TEST(RoomTest, TooManyDrumsRooms) {
+    clearContext();
+    room_manager.addRoom<SmallDrumRoom>(1);
+    room_manager.addRoom<SmallDrumRoom>(1);
+    room_manager.addRoom<SmallDrumRoom>(1);
+
+    room_manager.addRoom<StandardDrumRoom>(2);
+    room_manager.addRoom<StandardDrumRoom>(2);
+    auto rooms = room_manager.getAllRooms<SmallDrumRoom>(1);
+    EXPECT_EQ(rooms.size(), 2);
+
+    auto rooms_2 = room_manager.getAllRooms<StandardDrumRoom>(2);
+    EXPECT_EQ(rooms_2.size(), 1);
+
+}
+TEST(RoomTest, TooManySoloDuoRooms) {
+    clearContext();
+    room_manager.addRoom<SoloDuoRoom>(2);
+    room_manager.addRoom<SoloDuoRoom>(2);
+    room_manager.addRoom<SoloDuoRoom>(2);
+
+    auto rooms = room_manager.getAllRooms<SoloDuoRoom>(2);
+    EXPECT_EQ(rooms.size(), 2);
+
+    auto rooms_2 = room_manager.getAllRooms<StandardDrumRoom>(1);
+    EXPECT_EQ(rooms_2.size(), 1);
+
 }
 
 TEST(RoomTests, TooManyBandRooms) {

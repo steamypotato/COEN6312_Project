@@ -1,8 +1,3 @@
-//
-// Created by Hoopa on 3/3/2025.
-//
-
-
 #include "TestSetup.h"
 
 TEST(PaymentTest, PriceCorrectlyCalculated) {

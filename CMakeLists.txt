@@ -25,6 +25,8 @@ add_executable(COEN6312 main.cpp
         ${SRC}
 )
 add_library(SRC_LIB ${SRC})
-add_executable(tests ${TEST_SRCS})
+add_executable(tests ${TEST_SRCS}
+        tests/InstrumentTests.cpp
+        tests/CheckInOutTests.cpp)
 target_link_libraries(tests gtest gtest_main pthread SRC_LIB)
 
