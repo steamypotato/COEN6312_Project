@@ -16,6 +16,7 @@ std::shared_ptr<RoomType> makeRoom(int max_size) {
 void createRooms() {
     RoomManager& roomManager = RoomManager::getInstance();
 
+    //room_manager.addRoom<RecordingRoom>(1);
     // Create all rooms, we provide each room with the maximum number of people that can occupy it.
     roomManager.addRooms(
         roomManager,
@@ -50,10 +51,6 @@ void createRooms() {
 
 }
 
-void checkInUserExample() {
-
-}
-
 void userBookingExample() {
     RoomManager& roomManager = RoomManager::getInstance();
     BookingManager& bookingManager = BookingManager::getInstance();
@@ -81,10 +78,10 @@ int main() {
 
     createRooms();
 
-    userBookingExample();
+    //userBookingExample();
 
 
-    //RoomManager::getInstance().printRoomDetails();
+    RoomManager::getInstance().printAllRoomDetails();
 
 
     std::cin.get();

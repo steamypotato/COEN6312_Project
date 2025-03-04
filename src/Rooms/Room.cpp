@@ -22,6 +22,10 @@ std::string Room::getID() const {
 bool Room::getAvailable() const {
     return m_Available;
 }
+int Room::getMaxRoomCount() const {
+    return m_MaxDerivedRoomCount;
+}
+
 int Room::getMaxCapacity() const {
     return m_MaxCapacity;
 }
