@@ -71,34 +71,106 @@ std::pair<bool,std::string>  BookingManager::modifyBooking(const std::string& id
     return {true,id};
 }
 
-
-std::pair<bool,std::string> BookingManager::checkInUser(const std::shared_ptr<User>& user, std::string bookingID, std::string roomID, std::string current_time){
-
+std::pair<bool,std::string> BookingManager::cancelBooking(const std::string& bookingID, const std::shared_ptr<User> & user, const std::shared_ptr<User>& receptionist,
+    const std::string& current_time) {
     // Does this booking exist?
-    auto booking = m_Bookings.find(bookingID);
-    if(booking == m_Bookings.end()){
+    if(!m_Bookings.contains(bookingID)) {
         return std::make_pair(false,std::format("Booking {} not found",bookingID));
     }
+
+    const std::shared_ptr<Booking> booking = m_Bookings.at(bookingID);
+
+    // Is the user an actual musician ?
+    if (user->getRole() != MUSICIAN) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",user->getName()));
+    }
+    // Does the receptionist have the correct role to perform this operation?
+    if (receptionist->getRole() != RECEPTIONIST) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",receptionist->getName()));
+    }
+    int time_diff = utils::getEpochFromTimeString(current_time) - utils::getEpochFromTimeString(booking->getStartTime());
+    // Less than 12 hours until the booking is non-cancelleable
+    if (time_diff < (12 * 60 * 60)) {
+        return std::make_pair(false,std::format("Bookings cannot be cancelled less within less than 24 hours "));
+    }
+    m_Bookings.erase(bookingID);
+    return std::make_pair(true,std::format("Cancelled booking {}",bookingID));
+}
+
+std::pair<bool,std::string> BookingManager::checkInUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
+    std::string bookingID, std::string roomID, const std::string &current_time) const {
+
+    // Does this booking exist?
+    if(!m_Bookings.contains(bookingID)) {
+        return std::make_pair(false,std::format("Booking {} not found",bookingID));
+    }
+    const std::shared_ptr<Booking> booking = m_Bookings.at(bookingID);
     // Does the room exist?
     auto room = roomManager.getRoomByID(roomID);
     if(room == nullptr){
         return std::make_pair(false,std::format("Room {} not found",roomID));
     }
-    //User is too late! (10 minutes + is late)
-    int arrival_diff = utils::getEpochFromTimeString(current_time) - utils::getEpochFromTimeString(booking->second->getStartTime());
-    if(arrival_diff > 600){
+    // Did this user book the room hes trying to check into?
+    if (booking->getBookedRoomID() != roomID) {
+        return std::make_pair(false,std::format("Wrong check in for {}, has booked room {} but trying to access room {}",
+            user->getName(),booking->getBookedRoomID(),roomID));
+    }
+    // Does the receptionist have the correct role to perform this operation?
+    if (receptionist->getRole() != RECEPTIONIST) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",receptionist->getName()));
+    }
+    // Is the user an actual musician ?
+    if (user->getRole() != MUSICIAN) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",user->getName()));
+    }
+
+    int arrival_diff = utils::getEpochFromTimeString(current_time) - utils::getEpochFromTimeString(booking->getStartTime());
+    if(arrival_diff > 600){ //User is too late! (10 minutes + is late)
         return std::make_pair(false,std::format("User {} is late by {} seconds",bookingID,arrival_diff));
     }
+    // What is the room is not available ?
     if(!room->getAvailable()){
         return std::make_pair(false,std::format("Room {} not available",roomID));
     }
+    // Mark the room for the booking as unavailable
     room->setAvailable(false);
 
-    user.get()->setCheckIn(true);
+    // Check the user in
+    booking->setCheckIn(true);
 
     return std::make_pair(true,std::format("{} checked in for room {}",user->getName(),roomID));
-
 }
+std::pair<bool,std::string> BookingManager::checkOutUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
+    std::string bookingID, std::string roomID, const std::string &current_time) const {
+
+    // Does this booking exist?
+    if(!m_Bookings.contains(bookingID)) {
+        return std::make_pair(false,std::format("Booking {} not found",bookingID));
+    }
+    const std::shared_ptr<Booking> booking = m_Bookings.at(bookingID);
+
+    // If so, lets make sure the user checked in
+    if (!booking->getCheckIn()) {
+        return std::make_pair(false,std::format("User {} did not check in!",user->getName()));
+    }
+    // Does the receptionist have the correct role to perform this operation?
+    if (receptionist->getRole() != RECEPTIONIST) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",receptionist->getName()));
+    }
+    // Is the user an actual musician ?
+    if (user->getRole() != MUSICIAN) {
+        return std::make_pair(false,std::format("User {} does not have the required role for this operation",user->getName()));
+    }
+
+    auto room = roomManager.getRoomByID(roomID);
+    // Mark the room for the booking as unavailable
+    room->setAvailable(true);
+    // Check the user out
+    booking->setCheckIn(false);
+
+    return std::make_pair(true,std::format("{} checked out for room {}",user->getName(),roomID));
+}
+
 
 std::string BookingManager::getBookingInformation(const std::string& id) const {
     return m_Bookings.at(id)->getBookingInformation();

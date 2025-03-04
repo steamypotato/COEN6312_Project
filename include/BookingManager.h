@@ -9,6 +9,7 @@
 #include "unordered_map"
 #include "RoomManager.h"
 #include "Uuid.h"
+#include "Receptionnist.h"
 
 class BookingManager {
     std::unordered_map<std::string, std::shared_ptr<Booking>> m_Bookings;
@@ -24,7 +25,14 @@ class BookingManager {
     std::pair<bool,std::string> modifyBooking(const std::string& id, const std::shared_ptr<User> & user,
       const std::string & start_time,const std::string& end_time, const std::string& roomID, const int size);
 
-    std::pair<bool,std::string> checkInUser(const std::shared_ptr<User>& user, std::string bookingID, std::string roomID, std::string current_time);
+    std::pair<bool,std::string> cancelBooking(const std::string& id, const std::shared_ptr<User> & user, const std::shared_ptr<User> & receptionist,
+      const std::string& current_time);
+
+    std::pair<bool,std::string> checkInUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
+      std::string bookingID, std::string roomID, const std::string &current_time) const;
+
+    std::pair<bool,std::string> checkOutUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
+    std::string bookingID, std::string roomID, const std::string& current_time) const;
 
     /*
         This function will go through the map and find the booking associated with the user

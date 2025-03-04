@@ -24,6 +24,8 @@ class BandRoom : public Room {
     static constexpr int additional_per_person_room_cost = 5;
 
 public:
+
+
     explicit BandRoom(int);
     BandRoom();
     ~BandRoom() override;

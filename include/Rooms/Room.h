@@ -22,6 +22,7 @@ public:
     std::string getID() const;
     std::string getDetails();
     bool getAvailable() const;
+    int getMaxRoomCount() const;
 
     void setAvailable(bool available);
 
@@ -31,15 +32,15 @@ public:
         static_assert(std::is_base_of_v<Equipment, EquipmentType>, "T must inherit from Equipment");
         this->m_Equipment[uuid::generate_uuid_v4()] = std::make_unique<EquipmentType>();
     }
-    ;
+
 protected:
     bool m_Available;
     int m_MaxCapacity;
     int m_BaseCost;
     std::string m_ID;;
     std::string m_Description;
-
     std::map<std::string, std::unique_ptr<Equipment>> m_Equipment;
+    int m_MaxDerivedRoomCount = 5;
 };
 
 

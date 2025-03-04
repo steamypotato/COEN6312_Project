@@ -15,3 +15,5 @@ void RoomManager::printAllRoomDetails(){
       std::cout << room->getDetails() << "\n\n";
   }
 }
+
+

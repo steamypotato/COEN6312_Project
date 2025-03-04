@@ -5,5 +5,6 @@
 
 RecordingRoom::RecordingRoom(int capacity) : Room(capacity, base_hourly_rate) {
     m_Description = "Basic recording room";
+    m_MaxDerivedRoomCount = 3;
 }
 RecordingRoom::~RecordingRoom() = default;

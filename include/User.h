@@ -6,8 +6,14 @@
 #define USER_H
 
 #include <format>
-#include <iostream>
 #include <string>
+
+enum Role {
+    NONE,
+    MUSICIAN,
+    RECEPTIONIST,
+    ADMINISTRATOR
+};
 
 class User {
     std::string m_firstName;
@@ -15,13 +21,16 @@ class User {
     std::string m_email;
     std::string m_checkInTime;
     bool m_IsCheckedIn;
+    Role m_Role = Role::NONE;
 public:
     User(const std::string &, const std::string &,
         const std::string &);
 
-    void setCheckInTime(const std::string& checkInTime);
-    void setCheckIn(const bool);
-    [[nodiscard]] std::string getName() const;
+    std::string getName() const;
+    std::string getEmail() const;
+    Role getRole() const;
+
+    void setRole(Role) ;
 
 };
 
