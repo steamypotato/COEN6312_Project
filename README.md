@@ -8,9 +8,9 @@
 ## How to test
 After cloning, be in the root directory and do 
 
-`mkdir build && cd build`
-`cmake ..`
-`make`
+`mkdir build && cd build` \
+`cmake ..` \
+`make` 
 
 To run the tests
 `./COEN6312_TESTS`
