@@ -1,11 +1,11 @@
-#COEN6312 Project
+# COEN6312 Project
 
--Nikolas Darlas - 40098098
--Ebenezer Ogum - 40181109
--Sachin Raj Rajesh - 40307369
--Ramprasad Giriraj – 40298904
+- Nikolas Darlas - 40098098
+- Ebenezer Ogum - 40181109
+- Sachin Raj Rajesh - 40307369
+- Ramprasad Giriraj – 40298904
 
-##How to test
+## How to test
 After cloning, be in the root directory and do 
 
 `mkdir build && cd build`
