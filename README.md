@@ -1,6 +1,6 @@
 # COEN6312 Project
 
-- Nikolas Darlas - 40098098
+- Nikolas Darlas - 40098098 - Steamypotato
 - Ebenezer Ogum - 40181109
 - Sachin Raj Rajesh - 40307369
 - Ramprasad Giriraj – 40298904
