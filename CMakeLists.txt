@@ -18,6 +18,10 @@ FetchContent_Declare(
 # Prevent GoogleTest from overriding compiler flags
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
+if(WIN32)
+add_definitions(-D__cpp_lib_format)
+endif()
+
 # Fetch and add GoogleTest
 FetchContent_MakeAvailable(googletest)
 
@@ -33,6 +37,7 @@ add_executable(${PROJECT_NAME}_TESTS ${TEST_SRCS}
 target_link_libraries(${PROJECT_NAME}_TESTS gtest gtest_main pthread SRC_LIB)
 
 # This must be done for the 'format' library that doens't work too well on some linux versions...
+if (NOT WIN32)
 include(CheckIncludeFileCXX)
 check_include_file_cxx("format" CXX_FORMAT_SUPPORT)
 if (NOT CXX_FORMAT_SUPPORT)
@@ -42,5 +47,5 @@ endif()
 if (NOT CXX_FORMAT_SUPPORT)
     target_link_libraries(${PROJECT_NAME} fmt::fmt)
     target_link_libraries(${PROJECT_NAME}_TESTS fmt::fmt)
-
+endif()
 endif()

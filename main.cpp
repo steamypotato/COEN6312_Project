@@ -78,9 +78,6 @@ int main() {
 
     createRooms();
 
-    //userBookingExample();
-
-
     RoomManager::getInstance().printAllRoomDetails();
 
 

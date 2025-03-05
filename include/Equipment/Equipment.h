@@ -20,7 +20,7 @@ class Equipment {
 public:
     [[nodiscard]] std::string getInformation() const;
     Equipment();
-    ~Equipment();
+    virtual ~Equipment();
 
 protected:
     std::string m_name;
