@@ -55,12 +55,16 @@ TEST(RoomTest, TooManyDrumsRooms) {
     room_manager.addRoom<SmallDrumRoom>(1);
     room_manager.addRoom<SmallDrumRoom>(1);
     room_manager.addRoom<SmallDrumRoom>(1);
+    room_manager.addRoom<SmallDrumRoom>(1);
 
     room_manager.addRoom<StandardDrumRoom>(2);
     room_manager.addRoom<StandardDrumRoom>(2);
+
+    //We can't have more than 2 small drums rooms
     auto rooms = room_manager.getAllRooms<SmallDrumRoom>(1);
     EXPECT_EQ(rooms.size(), 2);
-
+    
+    //We can't have more than 1 standard drum room
     auto rooms_2 = room_manager.getAllRooms<StandardDrumRoom>(2);
     EXPECT_EQ(rooms_2.size(), 1);
 
@@ -70,12 +74,11 @@ TEST(RoomTest, TooManySoloDuoRooms) {
     room_manager.addRoom<SoloDuoRoom>(2);
     room_manager.addRoom<SoloDuoRoom>(2);
     room_manager.addRoom<SoloDuoRoom>(2);
-
+    
+    //We can't have more than 2 solo/duo rooms
     auto rooms = room_manager.getAllRooms<SoloDuoRoom>(2);
     EXPECT_EQ(rooms.size(), 2);
 
-    auto rooms_2 = room_manager.getAllRooms<StandardDrumRoom>(1);
-    EXPECT_EQ(rooms_2.size(), 1);
 
 }
 

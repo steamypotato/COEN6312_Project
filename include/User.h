@@ -5,7 +5,16 @@
 #ifndef USER_H
 #define USER_H
 
+#ifndef __cpp_lib_format
+  // std::format polyfill using fmtlib
+  #include <fmt/core.h>
+  namespace std {
+      using fmt::format;
+  }
+#else
 #include <format>
+#endif
+
 #include <string>
 
 enum Role {
@@ -21,7 +30,6 @@ class User {
     std::string m_email;
     std::string m_checkInTime;
     bool m_IsCheckedIn;
-    Role m_Role = Role::NONE;
 public:
     User(const std::string &, const std::string &,
         const std::string &);
@@ -31,7 +39,9 @@ public:
     Role getRole() const;
 
     void setRole(Role) ;
-
+protected:
+    Role m_Role = Role::NONE;
+	
 };
 
 

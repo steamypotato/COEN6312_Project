@@ -10,7 +10,6 @@
 #include "User.h"
 
 class Administrator : public User {
-    Role m_Role;
     public:
 
     bool assignRole(const std::shared_ptr<User> &,Role) const;

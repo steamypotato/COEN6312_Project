@@ -6,10 +6,11 @@
 
 TEST(RoleTests, WrongRoleTryingToAssignRole) {
     clearContext();
-    admin->setRole(NONE);
+    admin->setRole(MUSICIAN);
     EXPECT_FALSE(admin->assignRole(user,MUSICIAN));
     EXPECT_FALSE(admin->assignRole(receptionist,MUSICIAN));
 }
+
 TEST(RoleTests, CorrectRoleAssignment) {
     clearContext();
     admin->setRole(ADMINISTRATOR);

@@ -1,6 +1,7 @@
 #include "TestSetup.h"
 
 TEST(PaymentTest, PriceCorrectlyCalculated) {
+    clearContext();
     auto room_id = room_manager.addRoom<RecordingRoom>(1).second;
     auto [status,booking_id] = booking_manager.createBooking(user,"11:00","14:00",room_id,1);
     EXPECT_EQ(status,true);
@@ -13,6 +14,7 @@ TEST(PaymentTest, PriceCorrectlyCalculated) {
 
 
 TEST(PaymentTests,SuccesfulPayment){
+    clearContext();
     auto room_id = room_manager.addRoom<RecordingRoom>(1).second;
     auto booking_id = booking_manager.createBooking(user,"11:00","14:00",room_id,1).second;
 
@@ -24,6 +26,7 @@ TEST(PaymentTests,SuccesfulPayment){
 }
 
 TEST(PaymentTests,InsufficientFunds) {
+    clearContext();
     auto room_id = room_manager.addRoom<RecordingRoom>(1).second;
     auto booking_id = booking_manager.createBooking(user,"11:00","14:00",room_id,1).second;
 
