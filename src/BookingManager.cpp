@@ -98,7 +98,7 @@ std::pair<bool,std::string> BookingManager::cancelBooking(const std::string& boo
 }
 
 std::pair<bool,std::string> BookingManager::checkInUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
-    std::string bookingID, std::string roomID, const std::string &current_time) const {
+    const std::string& bookingID, const std::string& roomID, const std::string &current_time) const {
 
     // Does this booking exist?
     if(!m_Bookings.contains(bookingID)) {
@@ -141,7 +141,7 @@ std::pair<bool,std::string> BookingManager::checkInUser(const std::shared_ptr<Us
     return std::make_pair(true,std::format("{} checked in for room {}",user->getName(),roomID));
 }
 std::pair<bool,std::string> BookingManager::checkOutUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
-    std::string bookingID, std::string roomID, const std::string &current_time) const {
+    const std::string& bookingID, const std::string& roomID, const std::string &current_time) const {
 
     // Does this booking exist?
     if(!m_Bookings.contains(bookingID)) {
@@ -170,7 +170,24 @@ std::pair<bool,std::string> BookingManager::checkOutUser(const std::shared_ptr<U
 
     return std::make_pair(true,std::format("{} checked out for room {}",user->getName(),roomID));
 }
+std::shared_ptr<Booking> BookingManager::getBookingForUser(const std::shared_ptr<User> & user){
+    auto it = std::find_if(m_Bookings.begin(),m_Bookings.end(),[&](const std::pair<std::string,std::shared_ptr<Booking>> & booking){
+      return (booking.second->getUser() == user);
+    });
+    return (it != m_Bookings.end()) ? it->second : nullptr;
+}
+void BookingManager::removeBookingByID(const std::string& id){
+    m_Bookings.erase(id);
+}
+void BookingManager::clearAllBookings() {
+    m_Bookings.clear();
+}
 
+std::shared_ptr<Booking> BookingManager::getBookingByID(const std::string& id) const{
+    if (!m_Bookings.contains(id))
+        return nullptr;
+    return m_Bookings.at(id);
+}
 
 std::string BookingManager::getBookingInformation(const std::string& id) const {
     return m_Bookings.at(id)->getBookingInformation();

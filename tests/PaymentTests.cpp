@@ -1,3 +1,5 @@
+#include <RecordingRoom.h>
+
 #include "TestSetup.h"
 
 TEST(PaymentTest, PriceCorrectlyCalculated) {

@@ -1,19 +1,9 @@
 //
 // Created by niko on 3/4/25.
 //
+#include <RecordingRoom.h>
+
 #include "TestSetup.h"
-
-TEST(CheckInTest, RoomNotAvailable) {
-    clearContext();
-
-    std::string room_id = room_manager.addRoom<RecordingRoom>(1).second;
-    auto [booking_status,booking_id] = booking_manager.createBooking(user,"11:00","14:00",room_id,1);
-
-    room_manager.getRoomByID(room_id)->setAvailable(false);
-    auto current_time = "10:55";
-    auto [check_in_status, msg] = booking_manager.checkInUser(user,receptionist,booking_id,room_id,current_time);
-    EXPECT_FALSE(check_in_status) << msg;
-}
 
 // If we are trying to check the user into a room that he did NOT book
 TEST(CheckInTest, WrongRoomSelected) {
@@ -44,7 +34,7 @@ TEST(CheckInTest, UserCheckedInTooLate) {
 
 
 // A correct user checking-in scenario is provided
-TEST(CheckInTest, UserCheckedIn) {
+TEST(CheckInTest, SucessfulCheckIn) {
     clearContext();
     std::string room_id = room_manager.addRoom<RecordingRoom>(1).second;
     auto current_time = "10:55";

@@ -15,6 +15,9 @@ class BookingManager {
     std::unordered_map<std::string, std::shared_ptr<Booking>> m_Bookings;
     RoomManager& roomManager = RoomManager::getInstance();
 
+    /*
+    *  Private constructors for singleton pattern
+    */
     BookingManager();
     ~BookingManager();
 
@@ -29,34 +32,24 @@ class BookingManager {
       const std::string& current_time);
 
     std::pair<bool,std::string> checkInUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
-      std::string bookingID, std::string roomID, const std::string &current_time) const;
+      const std::string& bookingID, const std::string& roomID, const std::string &current_time) const;
 
     std::pair<bool,std::string> checkOutUser(const std::shared_ptr<User>& user, const std::shared_ptr<User>& receptionist,
-    std::string bookingID, std::string roomID, const std::string& current_time) const;
+    const std::string& bookingID, const std::string& roomID, const std::string& current_time) const;
 
     /*
         This function will go through the map and find the booking associated with the user
         This basically simulates check in, where a user gives his name to the receptionnist, and the booking is found
      */
-    std::shared_ptr<Booking> getBookingForUser(const std::shared_ptr<User> & user){
-      auto it = std::find_if(m_Bookings.begin(),m_Bookings.end(),[&](const std::pair<std::string,std::shared_ptr<Booking>> & booking){
-        return (booking.second.get()->getUser() == user);
-      });
-      return (it != m_Bookings.end()) ? it->second : nullptr;
-    }
-    void removeBookingByID(const std::string& id){
-      m_Bookings.erase(id);
-    }
+    std::shared_ptr<Booking> getBookingForUser(const std::shared_ptr<User> & user);
 
-    std::shared_ptr<Booking> getBookingByID(const std::string& id) {
-      if (!m_Bookings.contains(id))
-        return nullptr;
-      return m_Bookings.at(id);
-    }
+    void removeBookingByID(const std::string& id);
+    std::shared_ptr<Booking> getBookingByID(const std::string& id) const;
+
     std::string getBookingInformation(const std::string& id) const;
-    void clearAllBookings() {
-      m_Bookings.clear();
-    }
+
+    void clearAllBookings();
+
     BookingManager(const BookingManager&) = delete;
     BookingManager& operator=(const BookingManager&) = delete;
     static BookingManager& getInstance();

@@ -19,7 +19,6 @@ namespace utils {
         std::istringstream iss(timeStr);
         iss >> std::get_time(&tm, "%H:%M");
 
-
         // mktime converts tm (interpreted as local time) into epoch time.
         return std::mktime(&tm);
     }

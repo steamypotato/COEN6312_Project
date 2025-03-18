@@ -4,7 +4,7 @@
 #include "TestSetup.h"
 
 
-TEST(RoleTests, WrongRoleTryingToAssignRole) {
+TEST(RoleTests, NonAdminRoleAssigment) {
     clearContext();
     admin->setRole(MUSICIAN);
     EXPECT_FALSE(admin->assignRole(user,MUSICIAN));

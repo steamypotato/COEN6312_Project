@@ -5,6 +5,9 @@
 #ifndef USER_H
 #define USER_H
 
+/*
+ * Some magic to make <format> work on non-windows version
+ */
 #ifndef __cpp_lib_format
   // std::format polyfill using fmtlib
   #include <fmt/core.h>

@@ -1,4 +1,17 @@
+#include <AdvancedLightingSystem.h>
+#include <AdvancedSoundSystem.h>
 #include <iostream>
+#include <Piano.h>
+#include <RecordingRoom.h>
+#include <SmallDrumRoom.h>
+#include <SmallDrums.h>
+#include <SoloDuoRoom.h>
+#include <SoundSystem.h>
+#include <Stage.h>
+#include <StandardDrumRoom.h>
+#include <StandardDrums.h>
+#include <Synthesizer.h>
+
 #include "User.h"
 #include "RoomManager.h"
 #include "BookingManager.h"

@@ -2,6 +2,11 @@
 // Created by Hoopa on 3/3/2025.
 //
 
+#include <RecordingRoom.h>
+#include <SmallDrumRoom.h>
+#include <SoloDuoRoom.h>
+#include <StandardDrumRoom.h>
+
 #include "TestSetup.h"
 
 

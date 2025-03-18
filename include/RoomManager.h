@@ -5,30 +5,16 @@
 #ifndef ROOMMANAGER_H
 #define ROOMMANAGER_H
 
-#include "SmallDrums.h"
-#include "StandardDrums.h"
-#include "Piano.h"
-#include "ElectricBassAmp.h"
-#include "EletricGuitarAmp.h"
-#include "Synthesizer.h"
-
-#include "SoundSystem.h"
-#include "AdvancedLightingSystem.h"
-#include "AdvancedSoundSystem.h"
-#include "Stage.h"
-#include "RecordingRoom.h"
-#include "SmallDrumRoom.h"
-#include "StandardDrumRoom.h"
-#include "SoloDuoRoom.h"
 #include "BandRoom.h"
-#include <iostream>
 #include <ranges>
 #include <optional>
 #include <bits/ranges_algo.h>
 
 class RoomManager {
     std::map<std::string,std::shared_ptr<Room>> m_Rooms;
-
+    /*
+    *  Private constructors for singleton pattern
+    */
     RoomManager();
     ~RoomManager();
 

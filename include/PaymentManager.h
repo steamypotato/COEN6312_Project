@@ -10,6 +10,9 @@
 #include "Receptionnist.h"
 class PaymentManager {
 
+    /*
+     *  Private constructors for singleton pattern
+     */
     PaymentManager();
     ~PaymentManager();
 
